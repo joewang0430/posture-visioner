@@ -1,6 +1,6 @@
 
 import Link from 'next/link';
-import NavBar from '@/components/home/NavBar';
+import NavBar from '../../components/home/NavBar';
 
 export default function AboutPage() {
 
