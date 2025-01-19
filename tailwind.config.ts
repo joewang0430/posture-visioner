@@ -10,6 +10,14 @@ export default {
   theme: {
   	extend: {
   		colors: {
+			// self-defined
+			"color-bg-nav": "var(--color-bg-nav)",
+			"color-bg-footer": "var(--color-bg-footer)",
+			"color-text-minor": "var(--color-text-minor)",
+			"color-theme-blue": "var(--color-theme-blue)",
+			"color-theme-grey": "var(--color-theme-grey)",
+			"color-theme-green": "var(--color-theme-green)",
+
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

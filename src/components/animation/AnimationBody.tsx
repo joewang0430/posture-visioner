@@ -31,6 +31,10 @@ const AnimationBody = () => {
     return (
         <div>
             <h1>This will be the animation page</h1>
+            <div className="controls">
+                <button onClick={handleBackward}>-10s</button>
+                <button onClick={handleForward}>+10s</button>
+            </div>
             <div style={{ display: 'flex', justifyContent: 'center', padding: '20px', width: '100%' }}>
                 <div style={{ flex: '1', maxWidth: '800px', height: 'auto', border: '1px solid #ccc', overflow: 'hidden', padding: '10px' }}>
                     <ThreeJSComponent />

@@ -33,6 +33,15 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+
+    /* added manually */
+    --color-bg-nav: #1f1f1f;
+    --color-bg-footer: #1f1f1f;
+    --color-text-minor: #999999;
+    --color-theme-blue: #0558f3;
+    --color-theme-brown: #e5c492;
+    --color-theme-grey: #747b8b;
+    --color-theme-green: #50a28b;
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -63,6 +72,7 @@ body {
 }
 
 @layer base {
+
   * {
     @apply border-border;
   }
