@@ -1,17 +1,31 @@
-import json
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
+from pymongo import MongoClient
+import gridfs
+import os
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    with open('pose_landmarks.json') as f:
-        data = json.load(f)
-    return jsonify(data)
+# Replace the following with your MongoDB Atlas connection string
+MONGODB_URL = "mongodb+srv://mw516:mw516AccessPassword@cluster0.eyl3l.mongodb.net/"
 
-@app.route('/data')
-def data():
-    return jsonify({"sample_data": 4})
+# Connect to MongoDB Atlas
+client = MongoClient(MONGODB_URL)
+db = client['mydatabase']  # Replace with your database name
+fs = gridfs.GridFS(db)
+
+@app.route('/upload', methods=['POST'])
+def upload_video():
+    if 'video' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+
+    file = request.files['video']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+
+    # Store the video in GridFS
+    file_id = fs.put(file, filename=file.filename)
+
+    return jsonify({'message': 'Video uploaded successfully', 'file_id': str(file_id)}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
