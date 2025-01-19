@@ -1,9 +1,12 @@
+"use client"
+
 import Link from "next/link";
 import MannequinComponent from "./MannequinComponent";
-// import VideoComponent from "./VideoComponent";
+import VideoComponent from "./VideoComponent";
 
 const AnimationBody = () => {
-    // const fileId = localStorage.getItem('uploadedFileId'); // Retrieve the fileId from local storage
+    const fileId = localStorage.getItem('file_id'); // Retrieve the fileId from local storage
+    console.log('File ID:', fileId);
 
     return (
         <div>
@@ -11,7 +14,11 @@ const AnimationBody = () => {
             <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
                 <div style={{ width: '600px', height: '400px', border: '1px solid #ccc', overflow: 'hidden' }}>
                     <MannequinComponent />
-                    {/*{fileId && <VideoComponent fileId={fileId} />} {/* Pass fileId to VideoComponent */}
+                </div>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
+                <div style={{ width: '600px', height: '400px', border: '1px solid #ccc', overflow: 'hidden' }}>
+                    <VideoComponent fileId={fileId || ''}/>
                 </div>
             </div>
             <Link href=".." className="underline">Click: Back</Link>
