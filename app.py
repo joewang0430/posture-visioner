@@ -6,11 +6,12 @@ import os
 from dotenv import load_dotenv
 from bson import ObjectId
 from werkzeug.utils import secure_filename
+import subprocess
 
 load_dotenv()
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'src/videos'
+app.config['UPLOAD_FOLDER'] = './server/videos'
 CORS(app)
 
 MONGODB_URI = os.getenv("MONGODB_URI")
@@ -66,6 +67,9 @@ def upload_video():
     # Save the file
     filename = secure_filename(file.filename)
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    print(f"File saved to {os.path.join(app.config['UPLOAD_FOLDER'], filename)}")
+
+    subprocess.run(['python3', 'server/mediaToPose.py'])
     
     return jsonify({'message': 'Video saved successfully', 'filename': filename}), 200
 

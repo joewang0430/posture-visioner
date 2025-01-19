@@ -15,7 +15,6 @@
 </head>
 
 <body>
-   <h1>Hello World</h1>
    <canvas id="threeCanvas"></canvas>
    <script type="module">
    import * as THREE from 'three';
@@ -116,7 +115,7 @@
 
    // Initialize joints and bones
    async function initializeSkeletonParts() {
-      const response = await fetch('/server/data/moved.json');
+      const response = await fetch('./moved.json');
       const data = await response.json();
       
       // Create joints
@@ -191,7 +190,11 @@
          }
       }
    }
-   init().then(() => animate());
+   init().then(() => {
+      animate();
+      // Send message to parent when Three.js is ready
+      window.parent.postMessage('threejs-ready', '*');
+   });
 
    // Handle window resize
    window.addEventListener('resize', () => {

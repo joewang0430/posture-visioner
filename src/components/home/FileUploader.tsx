@@ -32,6 +32,8 @@ const FileUploader: React.FC = () => {
               body: formData,
             });
 
+
+
             const data = await response.json();
             if (response.ok) {
               const field = data.file_id
