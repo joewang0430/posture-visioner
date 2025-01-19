@@ -1,13 +1,24 @@
 "use client"
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import {useDropzone} from 'react-dropzone';
 
 const FileUploader: React.FC = () => {
     const [file, setFile] = useState<File | null>(null);
     const router = useRouter();
     const [fileId, setFileId] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean | null>(null);
+
+    const onDrop = (acceptedFiles: File[]) => {
+      setFile(acceptedFiles[0] || null);
+    };
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+      onDrop,
+      accept: { "video/*": [] },
+      maxFiles: 1,
+    });
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0] || null;
@@ -25,6 +36,8 @@ const FileUploader: React.FC = () => {
 
         const formData = new FormData();
         formData.append("video", file);
+
+        
 
         try {
             const response = await fetch("http://127.0.0.1:5000/upload", {
@@ -61,12 +74,27 @@ const FileUploader: React.FC = () => {
     return (
         <div className="upload-container">
           <h1>Upload file here:</h1>
-          <input
-            type="file"
-            accept="video/*"
-            onChange={handleFileChange}
-            className="file-input"
-          />
+          <div
+            {...getRootProps()}
+            className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
+              isDragActive ? "border-blue-500 bg-blue-100" : "border-gray-300 bg-gray-50"
+            }`}
+          >
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <p className="text-blue-500 font-medium">Drop the file here...</p>
+            ) : file ? (
+              <p className="text-gray-700">
+                Selected file: <span className="font-medium">{file.name}</span>
+              </p>
+            ) : (
+              <p className="text-gray-700">
+                Drag & drop a file here, or{" "}
+                <span className="text-blue-500 underline cursor-pointer">click to select</span>
+              </p>
+            )}
+          </div>
+          
           <button onClick={handleUpload} className="upload-button underline">
             {loading === null && "Get started"}
             {loading === true && "Loading..."}
