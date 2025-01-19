@@ -12,19 +12,20 @@ const AnimationBody = () => {
     const [isProcessing, setIsProcessing] = useState(true);
 
     return (
-        <div>
-            <h1>This will be the animation page</h1>
-            <div style={{ display: 'flex', justifyContent: 'center', padding: '20px', width: '100%' }}>
-            <div style={{ flex: '1', maxWidth: '800px', height: 'auto', border: '1px solid #ccc', overflow: 'hidden', padding: '10px' }}>
-                    <div style={{ width: '100%', height: '100%', objectFit: 'contain' }}>
-                        <VideoComponent fileId={fileId || ''} setIsProcessing={setIsProcessing}  />
+        <div className="flex flex-col items-center">
+            <div className="flex justify-center gap-8 p-8 w-full max-w-[2000px]">
+                <div className="flex-1 flex justify-center h-100 items-center border border-gray-300 rounded-lg p-4" style={{ maxHeight: '600px' }}>
+                    <div className="w-full h-full flex justify-center items-center">
+                        <VideoComponent 
+                            fileId={fileId || ''} 
+                            setIsProcessing={setIsProcessing}
+                        />
                     </div>
                 </div>
-                <div style={{ flex: '1', maxWidth: '800px', height: 'auto', border: '1px solid #ccc', overflow: 'hidden', padding: '10px' }}>
-                    {isProcessing ? <AnimationLoading /> : <ThreeJSComponent/>}
+                <div className="flex-1 flex justify-center items-center border border-gray-300 rounded-lg p-4" style={{ maxHeight: '600px' }}>
+                    {isProcessing ? <AnimationLoading /> : <ThreeJSComponent />}
                 </div>
             </div>
-            <Link href=".." className="underline">Click: Back</Link>
         </div>
     );
 }

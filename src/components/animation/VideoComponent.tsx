@@ -55,9 +55,6 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ fileId, setIsProcessing
             ) : (
                 <p>Loading video...</p>
             )}
-            {downloadLink && (
-                <a href={downloadLink} download>Download Video</a>
-            )}
         </div>
     );
 };

@@ -61,21 +61,28 @@ const FileUploader: React.FC = () => {
     }, []);
 
     return (
-        <div className="upload-container">
-          <h1>Upload file here:</h1>
+      <div className=" flex flex-col items-start">
+        <div className="flex w-full">
           <input
             type="file"
             accept="video/*"
             onChange={handleFileChange}
-            className="file-input"
+            className="file-input text-left"
           />
-          <button onClick={handleUpload} className="upload-button underline">
-            {loading === null && "Get started"}
-            {loading === true && "Loading..."}
-            {loading === false && "Here we go"}
-          </button>
         </div>
-      );
+          <div className="h-4"></div>
+        <button
+          onClick={handleUpload}
+          className="px-6 py-4 w-64 rounded-lg text-white font-semibold shadow-md transition-all duration-300 bg-blue-700 hover:underline"
+        >
+          {loading === null && "Get started "}
+          {loading === true && "Loading..."}
+          {loading === false && "Here we go"}
+        </button>
+      </div>
+    );
+    
+    
 }
 
 export default FileUploader;
