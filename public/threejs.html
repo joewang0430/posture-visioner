@@ -19,7 +19,7 @@
    <canvas id="threeCanvas"></canvas>
    <script type="module">
    import * as THREE from 'three';
-   import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/controls/OrbitControls.js';
+   import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
    const scene = new THREE.Scene();
    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -116,7 +116,7 @@
 
    // Initialize joints and bones
    async function initializeSkeletonParts() {
-      const response = await fetch('moved.json');
+      const response = await fetch('server/data/moved.json');
       const data = await response.json();
       
       // Create joints
@@ -165,8 +165,8 @@
                for (const [jointId, jointData] of Object.entries(frameData)) {
                   const joint = joints[jointId];
                   if (joint) {
-                     const x = jointData.x * SCALE;
-                     const y = -jointData.y * SCALE; // Flip Y axis
+                     const x = -(jointData.x) * SCALE; // Flip X axis
+                     const y = -(jointData.y) * SCALE; // Flip Y axis
                      const z = jointData.z * SCALE;
 
                      joint.position.set(x, y, z);

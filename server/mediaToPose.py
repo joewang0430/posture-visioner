@@ -204,5 +204,5 @@ for index, frame in enumerate(real):
         joint_id = int(joint_id)  # Convert joint ID to an integer
         joint_data["y"] -= max_y
 
-with open('moved.json', 'w') as f:
+with open('data/moved.json', 'w') as f:
     json.dump(real, f, indent=4)
