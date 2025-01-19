@@ -33,7 +33,6 @@ const FileUploader: React.FC = () => {
             console.error("Upload Failed", error);
             alert("Something went wrong. Please try again later or contact our team.");
           }
-          
     }
 
     return (

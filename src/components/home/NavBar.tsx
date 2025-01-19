@@ -11,7 +11,7 @@ export default function NavBar() {
         <div className="text-xl font-bold">Posture Visoner</div>
         <ul className="flex space-x-4">
           <li><Link href="/about" className="hover:text-gray-400">About</Link></li>
-          <li><Link href="https://github.com/joewang0430" className="hover:text-gray-400">GitHub</Link></li>
+          <li><Link href="https://github.com/joewang0430/posture-visioner" className="hover:text-gray-400">GitHub</Link></li>
         </ul>
       </nav>
     </header>
