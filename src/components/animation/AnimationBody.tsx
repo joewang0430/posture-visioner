@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link";
-import MannequinComponent from "./MannequinComponent";
+import MannequinComponent from "./ThreeJSComponent";
 import VideoComponent from "./VideoComponent";
 
 const AnimationBody = () => {
@@ -12,7 +12,7 @@ const AnimationBody = () => {
         <div>
             <h1>This will be the animation page</h1>
             <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
-                <div style={{ width: '600px', height: '400px', border: '1px solid #ccc', overflow: 'hidden' }}>
+                <div style={{ width: '800px', height: '600px', border: '1px solid #ccc', overflow: 'hidden' }}>
                     <MannequinComponent />
                 </div>
             </div>
