@@ -1,10 +1,13 @@
+import json
 from flask import Flask, jsonify
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return jsonify({"message": "WE DID IT"})
+    with open('pose_landmarks.json') as f:
+        data = json.load(f)
+    return jsonify(data)
 
 @app.route('/data')
 def data():
