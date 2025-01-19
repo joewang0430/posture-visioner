@@ -34,6 +34,7 @@ def upload_video():
 
 @app.route('/get_video', methods=['GET'])
 def get_video():
+    print("get_video endpoint hit")
     file_id = request.args.get('file_id')
     print(f"Requested file_id: {file_id}")
     if not file_id:
