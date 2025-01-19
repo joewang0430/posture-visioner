@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from pymongo import MongoClient
 import gridfs
 import os
@@ -7,13 +8,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 MONGODB_URI = os.getenv("MONGODB_URI")
 
 # Connect to MongoDB Atlas
 client = MongoClient(MONGODB_URI)
-db = client['Cluster0'] 
-fs = gridfs.GridFS(db)
+db = client['myDatabase'] 
+fs = gridfs.GridFS(db, collection='Videos')
 
 @app.route('/upload', methods=['POST'])
 def upload_video():
