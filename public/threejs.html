@@ -116,7 +116,7 @@
 
    // Initialize joints and bones
    async function initializeSkeletonParts() {
-      const response = await fetch('/server/data/moved.json');
+      const response = await fetch('public/moved.json');
       const data = await response.json();
       
       // Create joints

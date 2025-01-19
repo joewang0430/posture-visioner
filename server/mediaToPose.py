@@ -2,6 +2,9 @@ import cv2
 import mediapipe as mp
 import json
 import numpy as np
+import sys
+
+print(sys.executable)
 
 def mediaToPose(path):
     # Initialize MediaPipe pose and drawing modules
@@ -35,7 +38,6 @@ def mediaToPose(path):
             
             with open(output_path, 'w') as json_file:
                 json.dump(pose_landmarks_list, json_file, indent=4)
-            print(f"Pose landmarks data saved to {output_path}")
 
     def save_cameramarks_json(results, output_path):
         """Extract and save pose landmarks to a JSON file."""
@@ -53,7 +55,6 @@ def mediaToPose(path):
             
             with open(output_path, 'w') as json_file:
                 json.dump(pose_phone_landmarks_list, json_file, indent=4)
-            print(f"Pose landmarks data saved to {output_path}")
 
     def process_image(image_path, output_json_phone=None, output_json_real=None):
         """Process a single image for pose detection and optionally save the result as JSON."""
@@ -125,11 +126,9 @@ def mediaToPose(path):
         if output_json_real:
             with open(output_json_real, 'w') as json_file:
                 json.dump(pose_landmarks_real, json_file, indent=4)
-            print(f"Pose landmarks data saved to {output_json_real}")
         if output_json_phone:
             with open(output_json_phone, 'w') as json_file:
                 json.dump(pose_landmarks_phone, json_file, indent=4)
-            print(f"Pose landmarks data saved to {output_json_phone}")
         
         cap.release()
         if output_video:
@@ -166,7 +165,7 @@ def mediaToPose(path):
         """Save the calculated midpoints to a JSON file."""
         with open(output_path, 'w') as json_file:
             json.dump(midpoints, json_file, indent=4)
-        print(f"Midpoints data saved to {output_path}")
+
 
     process_video(path,output_json_phone="server/data/phone_landmarks.json", output_json_real="server/data/pose_landmarks.json")
 
@@ -208,5 +207,4 @@ def mediaToPose(path):
     with open('public/moved.json', 'w') as f:
         json.dump(real, f, indent=4)
 
-
-mediaToPose("server/data/model.mov")
+mediaToPose("src/videos/downloaded_video.mp4")

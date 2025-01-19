@@ -4,10 +4,10 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const FileUploader: React.FC = () => {
+  // TESTING
     const [file, setFile] = useState<File | null>(null);
     const router = useRouter();
     const [fileId, setFileId] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean | null>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0] || null;
@@ -15,13 +15,10 @@ const FileUploader: React.FC = () => {
     };
 
     const handleUpload = async () => {
-
         if (!file) {
           alert("Please select the file!");
           return;
         }
-
-        setLoading(true);
 
         const formData = new FormData();
         formData.append("video", file);
@@ -33,18 +30,17 @@ const FileUploader: React.FC = () => {
             });
 
             const data = await response.json();
+
             if (response.ok) {
               const field = data.file_id
               localStorage.setItem("file_id", field);
               router.push("/animation");
             } else {
-              alert("Upload Failed. Please try again later or contact our team.");
-              return;
+              alert("Upload Failed");
             }
       
             // alert("Upload Success!");
-            setLoading(false);
-            // router.push("/animation");
+            router.push("/animation");
           } catch (error) {
             console.error("Upload Failed", error);
             alert("Something went wrong. Please try again later or contact our team.");
@@ -53,7 +49,7 @@ const FileUploader: React.FC = () => {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            const storedFileId = localStorage.getItem('uploadedFileId');
+            const storedFileId = localStorage.getItem('file_id');
             setFileId(storedFileId);
         }
     }, []);
@@ -68,9 +64,7 @@ const FileUploader: React.FC = () => {
             className="file-input"
           />
           <button onClick={handleUpload} className="upload-button underline">
-            {loading === null && "Get started"}
-            {loading === true && "Loading..."}
-            {loading === false && "Here we go"}
+            Upload
           </button>
         </div>
       );
