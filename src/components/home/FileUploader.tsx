@@ -1,9 +1,11 @@
 "use client"
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const FileUploader: React.FC = () => {
     const [file, setFile] = useState<File | null>(null);
+    const router = useRouter();
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0] || null;
@@ -20,17 +22,18 @@ const FileUploader: React.FC = () => {
         formData.append("file", file);
 
         try {
-            // only send data to backend and not receive data 
             await fetch("http://localhost:5000/upload", {
               method: "POST",
               body: formData,
             });
       
-            alert("Upload Success!");
+            // alert("Upload Success!");
+            router.push("/animation");
           } catch (error) {
             console.error("Upload Failed", error);
             alert("Something went wrong. Please try again later or contact our team.");
           }
+          
     }
 
     return (
