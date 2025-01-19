@@ -2,15 +2,17 @@ from flask import Flask, request, jsonify
 from pymongo import MongoClient
 import gridfs
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
-# Replace the following with your MongoDB Atlas connection string
-MONGODB_URL = "mongodb+srv://mw516:mw516AccessPassword@cluster0.eyl3l.mongodb.net/"
+MONGODB_URI = os.getenv("MONGODB_URI")
 
 # Connect to MongoDB Atlas
-client = MongoClient(MONGODB_URL)
-db = client['mydatabase']  # Replace with your database name
+client = MongoClient(MONGODB_URI)
+db = client['Cluster0'] 
 fs = gridfs.GridFS(db)
 
 @app.route('/upload', methods=['POST'])
