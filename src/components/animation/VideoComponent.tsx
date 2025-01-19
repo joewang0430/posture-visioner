@@ -8,6 +8,7 @@ interface VideoComponentProps {
 
 const VideoComponent: React.FC<VideoComponentProps> = ({ fileId }) => {
     const [videoSrc, setVideoSrc] = useState('');
+    const [downloadLink, setDownloadLink] = useState('');
 
     useEffect(() => {
         const fetchVideo = async () => {
@@ -17,6 +18,21 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ fileId }) => {
                 const videoBlob = await response.blob();
                 const videoUrl = URL.createObjectURL(videoBlob);
                 setVideoSrc(videoUrl);
+                
+                // Send the video to the server to save it in the specified directory
+                const formData = new FormData();
+                formData.append('video', videoBlob, 'downloaded_video.mp4'); // Append the video blob
+
+                // Send the video to the upload endpoint
+                const uploadResponse = await fetch('http://127.0.0.1:5000/upload_video', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (uploadResponse.ok) {
+                    // Set the download link to the uploaded video
+                    setDownloadLink(`http://127.0.0.1:5000/videos/downloaded_video.mp4`); // Adjust the path as needed
+                }
             } else {
                 console.error('Error fetching video:', response.statusText);
             }
@@ -34,6 +50,9 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ fileId }) => {
                 </video>
             ) : (
                 <p>Loading video...</p>
+            )}
+            {downloadLink && (
+                <a href={downloadLink} download>Download Video</a>
             )}
         </div>
     );
