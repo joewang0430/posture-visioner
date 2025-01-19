@@ -11,7 +11,8 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ fileId }) => {
 
     useEffect(() => {
         const fetchVideo = async () => {
-            const response = await fetch(`/video/${fileId}`);
+            console.log('Fetching video with fileId:', fileId); // Log the fileId
+            const response = await fetch(`http://127.0.0.1:5000/get_video?file_id=${fileId}`);
             if (response.ok) {
                 const videoBlob = await response.blob();
                 const videoUrl = URL.createObjectURL(videoBlob);
