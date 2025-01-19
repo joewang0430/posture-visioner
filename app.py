@@ -5,10 +5,12 @@ import gridfs
 import os
 from dotenv import load_dotenv
 from bson import ObjectId
+from werkzeug.utils import secure_filename
 
 load_dotenv()
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'src/videos'
 CORS(app)
 
 MONGODB_URI = os.getenv("MONGODB_URI")
@@ -18,8 +20,10 @@ client = MongoClient(MONGODB_URI)
 db = client['myDatabase'] 
 fs = gridfs.GridFS(db, collection='Videos')
 
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)  # Create the directory if it doesn't exist
+
 @app.route('/upload', methods=['POST'])
-def upload_video():
+def video_upload():
     if 'video' not in request.files:
         return jsonify({'error': 'No file part'}), 400
 
@@ -48,6 +52,22 @@ def get_video():
         return jsonify({'error': 'Video not found'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@app.route('/upload_video', methods=['POST'])
+def upload_video():
+    if 'video' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+    
+    file = request.files['video']
+    
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+
+    # Save the file
+    filename = secure_filename(file.filename)
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    
+    return jsonify({'message': 'Video saved successfully', 'filename': filename}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
