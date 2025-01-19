@@ -1,9 +1,11 @@
 "use client"
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const FileUploader: React.FC = () => {
     const [file, setFile] = useState<File | null>(null);
+    const router = useRouter();
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0] || null;
@@ -25,7 +27,8 @@ const FileUploader: React.FC = () => {
               body: formData,
             });
       
-            alert("Upload Success!");
+            // alert("Upload Success!");
+            router.push("/animation");
           } catch (error) {
             console.error("Upload Failed", error);
             alert("Something went wrong. Please try again later or contact our team.");

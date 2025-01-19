@@ -8,7 +8,7 @@ export default function HomeBody() {
     <main className="flex-grow container mx-auto py-8 px-4">
         <h1>Posture Visioner!</h1>
         <div>
-            <Link href="/animation" className="underline">click: to Animation Page</Link>
+            <Link href="/animation" className="underline">to be DELETED later: to Animation Page</Link>
         </div>
         <div className='flex flex-row justify-between'>
             <FileUploader />
