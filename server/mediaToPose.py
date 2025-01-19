@@ -1,12 +1,30 @@
 import cv2
 import mediapipe as mp
 import json
+import os
 import numpy as np
 
 def mediaToPose(path):
+    print("Starting mediaToPose function")
+    absolute_path = os.path.abspath(path)
+    print(f"Attempting to open video at: {absolute_path}")
+    
+    # Try to check if file exists
+    if os.path.exists(absolute_path):
+        print(f"File exists at {absolute_path}")
+    else:
+        print(f"File does not exist at {absolute_path}")
+    
     # Initialize MediaPipe pose and drawing modules
     mp_pose = mp.solutions.pose
     mp_draw = mp.solutions.drawing_utils
+    
+    # Try to open video
+    cap = cv2.VideoCapture(absolute_path)
+    if cap.isOpened():
+        print("Successfully opened video file")
+    else:
+        print("Failed to open video file")
 
     def process_frame(frame, pose):
         """Convert frame to RGB, process it, and return pose landmarks."""
@@ -205,8 +223,7 @@ def mediaToPose(path):
             joint_id = int(joint_id)  # Convert joint ID to an integer
             joint_data["y"] -= max_y
 
-    with open('public/moved.json', 'w') as f:
+    with open('/Users/matthewwang/Desktop/nwHacks 2025/posture-visioner/public/moved.json', 'w') as f:
         json.dump(real, f, indent=4)
 
-
-mediaToPose("server/data/model.mov")
+mediaToPose("/Users/matthewwang/Desktop/nwHacks 2025/posture-visioner/server/videos/downloaded_video.mp4")

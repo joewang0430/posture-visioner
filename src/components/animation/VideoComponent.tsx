@@ -23,11 +23,13 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ fileId }) => {
                 const formData = new FormData();
                 formData.append('video', videoBlob, 'downloaded_video.mp4'); // Append the video blob
 
+                console.log("Uploading video to server")
                 // Send the video to the upload endpoint
                 const uploadResponse = await fetch('http://127.0.0.1:5000/upload_video', {
                     method: 'POST',
                     body: formData,
                 });
+                console.log("Upload response:", uploadResponse);
 
                 if (uploadResponse.ok) {
                     // Set the download link to the uploaded video

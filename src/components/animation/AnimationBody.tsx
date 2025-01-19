@@ -13,12 +13,12 @@ const AnimationBody = () => {
             <h1>This will be the animation page</h1>
             <div style={{ display: 'flex', justifyContent: 'center', padding: '20px', width: '100%' }}>
                 <div style={{ flex: '1', maxWidth: '800px', height: 'auto', border: '1px solid #ccc', overflow: 'hidden', padding: '10px' }}>
-                    <ThreeJSComponent />
-                </div>
-                <div style={{ flex: '1', maxWidth: '800px', height: 'auto', border: '1px solid #ccc', overflow: 'hidden', padding: '10px' }}>
                     <div style={{ width: '100%', height: '100%', objectFit: 'contain' }}>
                         <VideoComponent fileId={fileId || ''} />
                     </div>
+                </div>
+                <div style={{ flex: '1', maxWidth: '800px', height: 'auto', border: '1px solid #ccc', overflow: 'hidden', padding: '10px' }}>
+                    <ThreeJSComponent />
                 </div>
             </div>
             <Link href=".." className="underline">Click: Back</Link>
