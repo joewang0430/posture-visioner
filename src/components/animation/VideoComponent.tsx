@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react';
 
 interface VideoComponentProps {
     fileId: string; // Define the type for fileId
+    setIsProcessing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const VideoComponent: React.FC<VideoComponentProps> = ({ fileId }) => {
+const VideoComponent: React.FC<VideoComponentProps> = ({ fileId, setIsProcessing }) => {
     const [videoSrc, setVideoSrc] = useState('');
     const [downloadLink, setDownloadLink] = useState('');
 
@@ -30,6 +31,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ fileId }) => {
                     body: formData,
                 });
                 console.log("Upload response:", uploadResponse);
+                setIsProcessing(false);
 
                 if (uploadResponse.ok) {
                     // Set the download link to the uploaded video
