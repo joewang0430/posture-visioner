@@ -3,10 +3,30 @@
 import Link from "next/link";
 import ThreeJSComponent from "./ThreeJSComponent";
 import VideoComponent from "./VideoComponent";
+import { useRef } from "react";
 
 const AnimationBody = () => {
     const fileId = localStorage.getItem('file_id'); // Retrieve the fileId from local storage
     console.log('File ID:', fileId);
+
+    const videoRef = useRef<HTMLVideoElement | null>(null);
+
+    // move forward 1 second 
+    const handleForward = () => {
+        if (videoRef.current) {
+        videoRef.current.currentTime += 1;
+        }
+    };
+
+    // move backward 1 second
+    const handleBackward = () => {
+        if (videoRef.current) {
+        videoRef.current.currentTime = Math.max(
+            0,
+            videoRef.current.currentTime - 10
+        ); // make sure doesn't less thant zero
+        }
+    };
 
     return (
         <div>
@@ -17,7 +37,7 @@ const AnimationBody = () => {
                 </div>
                 <div style={{ flex: '1', maxWidth: '800px', height: 'auto', border: '1px solid #ccc', overflow: 'hidden', padding: '10px' }}>
                     <div style={{ width: '100%', height: '100%', objectFit: 'contain' }}>
-                        <VideoComponent fileId={fileId || ''} />
+                        <VideoComponent fileId={fileId || ''} ref={videoRef}/>
                     </div>
                 </div>
             </div>
