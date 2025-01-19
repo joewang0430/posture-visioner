@@ -11,7 +11,7 @@ export default function HomeBody() {
         <div className="flex flex-col justify-center items-center w-1/2 h-full bg-blue-300">
         <div className='flex flex-col justify-left'>
           <h1 className="text-5xl font-bold mb-4">This is</h1>
-          <h1 className="text-6xl font-bold mb-4">How We Move</h1>
+          <h1 className="text-6xl font-bold mb-4">How We Move.</h1>
           <div className='h-4'></div>
           <div className='text-md'>To start, please share with us your video:</div>
           <div className='h-10'></div>

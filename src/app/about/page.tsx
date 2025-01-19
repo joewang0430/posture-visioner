@@ -7,8 +7,11 @@ export default function AboutPage() {
     return (
         <div>
             <NavBar />
-            <h1>This will intro about our project</h1>
-            <Link href=".." className="underline">Click: Back</Link>
+            <div className='h-20'></div>
+            <a>
+            <p></p>
+            </a>
+            <Link href=".." className="underline hover:font-bold">Back to main</Link>
         </div>
-    )
+    );
 }
