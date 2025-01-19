@@ -205,8 +205,8 @@ def mediaToPose(path):
             joint_id = int(joint_id)  # Convert joint ID to an integer
             joint_data["y"] -= max_y
 
-    with open('server/data/moved.json', 'w') as f:
+    with open('public/moved.json', 'w') as f:
         json.dump(real, f, indent=4)
 
 
-# mediaToPose("server/data/model.mov")
+mediaToPose("server/data/model.mov")
