@@ -46,16 +46,16 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ fileId, setIsProcessing
     }, [fileId]);
 
     return (
-        <div>
-            {videoSrc ? (
-                <video controls width="600">
-                    <source src={videoSrc} type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
-            ) : (
-                <p>Loading video...</p>
-            )}
-        </div>
+        <div className="w-full max-w-[300px]">
+        {videoSrc ? (
+          <video controls className="w-full h-auto rounded-lg shadow-lg">
+            <source src={videoSrc} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <p className="text-center text-gray-500">Loading video...</p>
+        )}
+      </div>
     );
 };
 

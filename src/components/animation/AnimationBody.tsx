@@ -13,21 +13,24 @@ const AnimationBody = () => {
 
     return (
         <div className="flex flex-col items-center">
-            <div className="flex justify-center gap-8 p-8 w-full max-w-[2000px]">
-                <div className="flex-1 flex justify-center h-100 items-center border border-gray-300 rounded-lg p-4" style={{ maxHeight: '600px' }}>
-                    <div className="w-full h-full flex justify-center items-center">
-                        <VideoComponent 
-                            fileId={fileId || ''} 
-                            setIsProcessing={setIsProcessing}
-                        />
-                    </div>
-                </div>
-                <div className="flex-1 flex justify-center items-center border border-gray-300 rounded-lg p-4" style={{ maxHeight: '600px' }}>
-                    {isProcessing ? <AnimationLoading /> : <ThreeJSComponent />}
-                </div>
+          {/* 主内容容器 */}
+          <div className="flex justify-center gap-8 p-8 w-full max-w-[2000px]">
+            {/* 左侧视频区域 */}
+            <div className="flex-1 flex justify-center items-center border border-gray-300 rounded-lg p-4 max-h-[600px]">
+              <VideoComponent 
+                fileId={fileId || ''} 
+                setIsProcessing={setIsProcessing}
+              />
             </div>
+            
+            {/* 右侧动画或三维模型 */}
+            <div className="flex-1 flex justify-center items-center border border-gray-300 rounded-lg p-4 max-h-[600px]">
+              {isProcessing ? <AnimationLoading /> : <ThreeJSComponent />}
+            </div>
+          </div>
         </div>
-    );
+      );
+      
 }
 
 export default AnimationBody;
