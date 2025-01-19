@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 from pymongo import MongoClient
 import gridfs
@@ -30,6 +30,14 @@ def upload_video():
     file_id = fs.put(file, filename=file.filename)
 
     return jsonify({'message': 'Video uploaded successfully', 'file_id': str(file_id)}), 200
+
+@app.route('/get_video', methods=['GET'])
+def get_video():
+    file_id = request.args.get('file_id')
+    video = fs.get(file_id)
+    if not video:
+        return jsonify({'error': 'Video not found'}), 404
+    return send_file(video, mimetype='video/mp4')
 
 if __name__ == '__main__':
     app.run(debug=True)
